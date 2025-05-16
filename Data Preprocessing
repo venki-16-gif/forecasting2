@@ -1,0 +1,20 @@
+# Handle missing values
+for col in data.select_dtypes(include=['object']).columns:
+    data[col].fillna(data[col].mode()[0], inplace=True)
+for col in data.select_dtypes(include=[np.number]).columns:
+    data[col].fillna(data[col].mean(), inplace=True)
+
+# Encode categorical variables
+data = pd.get_dummies(data, drop_first=True)
+
+# Feature/target split
+X = data.drop('SalePrice', axis=1)
+y = data['SalePrice']
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Feature scaling
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
