@@ -1,0 +1,9 @@
+# Display results
+for model, metrics in results.items():
+    print(f"{model}: RMSE = {metrics['RMSE']:.2f}, R2 = {metrics['R2']:.3f}")
+
+# Plotting feature importance for XGBoost
+xgb_importance = pd.Series(xgb.feature_importances_, index=data.drop('SalePrice', axis=1).columns)
+xgb_importance.nlargest(10).plot(kind='barh')
+plt.title('Top 10 Feature Importances (XGBoost)')
+plt.show()
