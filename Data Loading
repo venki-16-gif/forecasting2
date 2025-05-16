@@ -1,0 +1,4 @@
+# Load your dataset (replace 'house_prices.csv' with your file)
+data = pd.read_csv('house_prices.csv')
+print(data.head())
+print(data.info())
